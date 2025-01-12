@@ -1,0 +1,232 @@
+<!DOCTYPE html>  
+<html lang="en" style="width: 100vw; height: 100vh;">
+
+    <head>
+        {% load static %}
+        <title>Encryptor Application</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        
+        <!-- May need find diff way to change output color of django tags for encrypted_output_c1/2 -->
+
+        <style>
+               
+                        
+            /* Below is for the grid view */ 
+            * {
+                box-sizing: border-box;
+            }
+
+
+            .col-1 {width: 8.33%;}
+            .col-2 {width: 16.66%;}
+            .col-3 {width: 25%;}
+            .col-4 {width: 33.33%;}
+            .col-5 {width: 41.66%;}
+            .col-6 {width: 50%;}
+            .col-7 {width: 58.33%;}
+            .col-8 {width: 66.66%;}
+            .col-9 {width: 75%;}
+            .col-10 {width: 83.33%;}
+            .col-11 {width: 91.66%;}
+            .col-12 {width: 100%;}
+
+            [class*="col"] {
+                float: left;
+                padding: 15px;
+                height: 88px;
+                white-space: nowrap;
+            }
+        </style>
+    </head>
+
+
+
+    <body style="position: static; width: 100%; height: 100vh; font-family: verdana; z-index: 1; background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(235, 105, 105));">
+        <div class="row">        
+            <div class="col-12">
+                <div class="header" style="width: 100vw; height: 140%; top: 0%; position: absolute; background-color: beige; color: black; z-index: 2;">
+                    <h1 id="title">Encryptor</h1>
+                </div> 
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-6">
+            </div> <!-- 25% -->
+            
+            <div class="col-6">
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-3" style="top: 0%; " > 
+                <center><div class="container" style="left: -90px; top: -16px; width: 11vw; position: relative;">Encrypt RSA Below:</div></center>
+            </div> <!-- 25% -->
+            
+
+            <div class="col-3">        
+
+            </div> <!-- 75% -->
+
+            
+            <div class="col-3">
+
+            </div>
+            
+            <div class="col-3" style="right: 1vw; margin: 0; padding: 0;">        
+                <div class="container" name='encrypted_output_c1' style="left: 185px; width: 11vw; margin: 0; padding: 0; text-align: right; max-width: 100%; position: relative; ">:Encrypted Output</div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-3">
+                <form action="/encrypt" method="POST" name="encrypt" style="height: 10vh; width: 30vh; left: 10px; top: -70px; position: relative;">
+                    {% csrf_token %}
+                    <input type="text" id="encrypt" name="encrypt" required minlength="1" placeholder="Enter text here..." style="height: 10vh; width: 30vh; top: 0%;">
+                    <button type="submit" style="top: 0px; left: 720px; position: relative; z-index: 1;">Submit</button>
+                </form>
+            </div> <!-- 25% -->
+            
+            
+            <div class="col-3"></div> 
+
+            <div class="col-3"></div>
+            
+            <div class="col-3">
+                <div class="container" id="encrypted_output_c1" name='border_output'
+                    style=
+                        "position: relative; 
+                        background-color: white; 
+                        color: black; 
+                        border: 1px black; 
+                        border-style: solid; 
+                        top: -70px;
+                        height: 10vh;
+                        width: 30vh;
+                        left: 40px; 
+                        word-wrap:break-word;
+                        overflow: auto;"> {% if ciphertext %} {{ciphertext}} {% else %} <center>
+                            <p 
+                                style=
+                                    "top: 10%; 
+                                    position: absolute; 
+                                    color: #000;
+                                    padding-top: 2vh;">Nothing to encrypt yet...</p></center>{% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-3"> <!-- ElGamal Title -->
+                <div class="container" style="left: 0px; top: -15px; position: relative;">Encrypt ElGamal Below:</div>
+            </div> <!-- 25% -->
+        
+            <div class="col-3">
+            </div>
+            
+            <div class="col-3"></div>
+            
+            <div class="col-3">
+                <div class="container" name='encrypted_output_c2' style="top: -15px; left: 150px; width: 11vw; margin: 0; padding: 0; text-align: right; max-width: 100%; position: relative;">:Encrypted Output</div>
+            </div>        
+        </div>
+
+
+        <div class="row">
+            
+            <div class="col-3">
+                <form action="/elgamal" method="POST" name="encrypt_gamal" style="height: 20vh; width: 30vh;">
+                    {% csrf_token %}
+                    <input type="text" id="encrypt_gamal" name="encrypt_gamal" required minlength="1" placeholder="Enter text here..." style="height: 10vh; width: 30vh; top: -62px; left: 25px;">
+                    <button type="submit" style="top: -30px; left: 740px; position: absolute; z-index: 1;">Submit</button>
+                </form>
+            </div> <!-- 25% -->
+            
+
+            <div class="col-3">
+            
+            </div>
+
+            
+            <div class="col-3"></div>
+            
+            <div class="col-3">
+                <div class="container" id="encrypted_output_c2" name='border_output_2' 
+                    style=
+                        "position: relative; 
+                        background-color: white; 
+                        color: black; 
+                        border: 1px black; 
+                        border-style: solid; 
+                        top: -75px;
+                        height: 10vh;
+                        width: 30vh;
+                        left: 40px; 
+                        word-wrap:break-word;
+                        overflow: auto;">{% if encrypted_text %} {{encrypted_text}} {% else %} <center>
+                            <p 
+                                style=
+                                    "top: 10%; 
+                                    position: absolute;
+                                    color: #000;
+                                    padding-top: 2vh;">Nothing to encrypt yet...</p></center>{% endif %}
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-3">
+               
+            </div> <!-- 25% -->
+            
+
+            <div class="col-3">
+            </div>
+
+            
+            <div class="col-3"></div>
+            
+            <div class="col-3"> 
+            </div>        
+            
+
+        </div>
+
+        
+        <div class="row">
+            
+            <div class="col-3"></div>
+            
+            <div class="col-3"></div>
+            
+            <div class="col-3"></div>
+            
+            <div class="col-3"></div>
+        </div>
+
+        
+
+    </body>
+
+
+
+    <footer>
+
+    </footer>
+
+
+
+</html>

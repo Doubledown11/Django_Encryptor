@@ -1,0 +1,58 @@
+
+
+
+
+
+
+
+
+
+
+.container_head {
+  position: absolute;
+  top:0;
+  width: 99%;
+  height: 10vh;
+  background-color: yellow;
+  color: yellow;
+  z-index: 2;
+
+}
+
+
+#title {
+  text-align: center;
+  padding-top: 5vh;
+}
+
+
+
+
+#encrypt {
+  position: absolute;
+  background-color: white;
+  z-index: 3;
+}
+
+#encrypt_gamal {
+  position: absolute;
+  background-color: white;
+  z-index: 3;
+}
+
+
+#encrypt::placeholder {
+  color: #000;
+} 
+
+#encrypt_gamal::placeholder {
+  color: #000;
+} 
+
+#encrypted_output_c1::placeholder {
+  color: #000;
+}
+
+#encrypted_output_c2::placeholder {
+  color: #000;
+}
