@@ -36,7 +36,7 @@
 
         <div class="row">
             <div class="col-3"> 
-                <div class="container1">Encrypt RSA Below:</div>
+                <center><div class="container1">Encrypt RSA Below:</div></center>
             </div> <!-- 25% -->
             
 
@@ -78,7 +78,7 @@
 
             
             <div class="col-3">
-                <div class="container3"> {% if ciphertext %} {{ciphertext}} {% else %} <center>
+                <div class="container3" name='border_output'> {% if ciphertext %} {{ciphertext}} {% else %} <center>
                     <p id="cont3_text">Nothing to encrypt yet...</p></center>{% endif %}
                 </div>
             </div>
@@ -96,7 +96,7 @@
             <div class="col-3"></div>
             
             <div class="col-3">
-                <div class="container5" name='encrypted_output_c2'>:Encrypted Output</div>
+                <div class="container5" name='encrypted_output_c2' id="output_gamal">:Encrypted Output</div>
             </div>        
         </div>
 
@@ -104,7 +104,7 @@
         <div class="row">
             
             <div class="col-3">
-                <form action="/elgamal" method="POST" name="encrypt_gamal" id="encrypt_form2">
+                <form action="/elgamal" method="POST" name="encrypt_gamal" id="encryt_form2">
                     {% csrf_token %}
                     <input type="text" id="encrypt_input2" name="encrypt_gamal" required minlength="1" placeholder="Enter text here...">
                 </form>
@@ -122,7 +122,7 @@
             </div> <!-- 16.66% -->
             
             <div class="col-3">
-                <div class="container6">{% if encrypted_text %} {{encrypted_text}} {% else %} <center>
+                <div class="container6" id="encrypted_output_c2" name='border_output_2'>{% if encrypted_text %} {{encrypted_text}} {% else %} <center>
                     <p id="cont6_text">Nothing to encrypt yet...</p></center>{% endif %}
                 </div>
             </div>

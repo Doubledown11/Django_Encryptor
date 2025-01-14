@@ -28,7 +28,7 @@ def prime():
     # 1.1: Generate Prime Numbers
     # Gen prime numbers between 2 and 200
     n = 2
-    max_num = 200 # The max number we will iterate to in order to generate primes.
+    max_num = 500 # The max number we will iterate to in order to generate primes.
     primes = []
     while n <= max_num:
         for x in range(2, int(math.sqrt(n)) + 1):

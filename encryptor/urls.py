@@ -22,5 +22,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('encrypt', views.encrypt, name='encrypt'),
     path('elgamal', views.elgamal, name='elgamal'),
-    path('gridview', views.grid, name='grid'),
+    path('responsive', views.responsive, name='responsive'),
 ]

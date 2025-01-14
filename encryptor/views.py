@@ -19,7 +19,8 @@ def grid(request):
     """sends user to the home page"""
     return render(request, 'gridview.html')
 
-
+def responsive(request):
+    return render(request, 'responsive.html')
 
 ### DSA Encrypt ###
 def encrypt_dsa(request): 
@@ -79,15 +80,12 @@ def elgamal(request):
         # Is a matrix with integer values for each letter in each word 
         # each nested list is a word in plaintext.
         plaintext_integers = convert_to_integers(plaintext)
-        print(plaintext_integers, 'ptext ints')
 
         # Encrypt the integers/binary list
         encrypted_ints = s_param(k,prime, plaintext_integers)
-        print(encrypted_ints, 'encrypted ints')
 
         # Convert the encrypted integers back into text
         encrypted_text = convert_to_text_EG(encrypted_ints)
-        print(encrypted_text, 'enc text')
 
         return render(request, 'home.html', {'encrypted_text':encrypted_text})
 
@@ -100,8 +98,7 @@ def elgamal(request):
 ### RSA Encrypt ###
 def encrypt(request):
     if request.method == 'POST':
-        plaintext = request.POST.get('encrypt', '')
-        print(plaintext, 'plaintext')
+        plaintext = request.POST.get('encrypt_input1', '')
 
         # Create list of binary numbers which represent the encrypted message 
         bin_list = convert_to_bin(plaintext)
