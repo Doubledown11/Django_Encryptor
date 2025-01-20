@@ -1,62 +1,619 @@
-/* Below is for the head */
-.header {
-  position: relative;
-  background-color: beige;
-  color: black;
-  z-index: 1;
-  width: 100%;
-  height: 20%;
+/* Below is for the grid view */ 
+* {
+  box-sizing: border-box;
 }
 
-.grid-row {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="col"] {
+  float: left;
+  padding: 15px;
+  height: 88px;
+  white-space: nowrap;
+  border: #000 1px solid;
 }
 
+
+      
+
+/* Below styling is for when the page is at full screen size. (981.6 X 729.6)  */
+
+html {
+  width: 100%; 
+  height: 100%;
+  position: fixed;
+}
+
+
+body {
+  position: static; 
+  width: 100%; 
+  height: 100%; 
+  font-family: verdana; 
+  z-index: 1; 
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(235, 105, 105));
+  background-color: #323131;
+  overflow:auto;
+}
+
+
+.header1 {
+  width: 100vw; 
+  height: 150px; 
+  top: -16px; 
+  position: relative; 
+  background-color: beige; 
+  color: black; 
+  z-index: 2;
+  overflow: auto;
+}
 
 #title {
   text-align: center;
-  padding-top: 5px;
+  padding-top: 5vh;
+}
+
+.container1 {
+  left: 75px; 
+  top: -16px; 
+  width: 11vw; 
+  position: relative;
+  color: #000;
 }
 
 
-/* Below is for the body */
+.container2 {
+  left: 40px; 
+  width: 11vw; 
+  top: -10px;
+  margin: 0; 
+  padding: 0; 
+  text-align: right; 
+  max-width: 100%; 
+  position: relative; 
+  color: #000;
+}
 
-body {
-    /* background-color: lightgrey; */ 
-    font-family: verdana;
-    z-index: 0;
-    background-image: linear-gradient(to right, rgb(235, 105, 105), rgba(255,0,0,0));
-    background-size: cover;
-    background-repeat: no-repeat;
+.container3::placeholder {
+  color: #000;
 }
 
 
-#encrypt {
+#encrypt_form1 {
+  height: 10vh; 
+  width: 30vh; 
+  left: 130px; 
+  top: -70px; 
+  position: relative;
+}
+
+
+
+#encrypt_input1 {
+  height: 10vh; 
+  width: 30vh; 
+  position: relative;
+  border: 1px black solid;
+  z-index: 2;
+}
+
+
+#encrypt_input1::placeholder {
+  color: #000;
+}
+
+#encrypt_button1 {
+  top: -45px; 
+  left: 35%; 
+  position: relative; 
+  z-index: 2;
+}
+
+
+
+
+#encrypt_form2 {
+  position: relative;
+  height: 10vh; 
+  width: 30vh; 
+  top: -70px; 
+  left: 130px;
+}
+
+
+#encrypt_input2 {
   position: relative;
   background-color: white;
   z-index: 3;
+  height: 10vh; 
+  width: 30vh;
+  border: 1px black solid;
 }
 
-#encrypt_gamal {
+
+#encrypt_input2::placeholder {
+  color: #000;
+}
+
+
+#encrypt_button2 {
+  top: -45px; 
+  left: 35%; 
+  position: relative; 
+  z-index: 2;
+}
+
+
+.container3 {
+  position: relative; 
+  background-color: white; 
+  color: black; 
+  border: 1px black solid; 
+  top: -70px;
+  height: 10vh;
+  width: 30vh;
+  left: -30px; 
+  word-wrap:break-word;
+  overflow: auto;
+}
+
+#cont3_text {
+  top: 10%; 
+  position: relative; 
+  color: #000;
+  padding-top: 10%;
+}
+
+
+
+
+.container4 {
+  left: 75px; 
+  top: -15px; 
   position: relative;
-  background-color: white;
-  z-index: 3;
-}
-
-#encrypt::placeholder {
-  color: #000;
-} 
-
-#encrypt_gamal::placeholder {
-  color: #000;
-} 
-
-#encrypted_output_c1::placeholder {
   color: #000;
 }
 
-#encrypted_output_c2::placeholder {
+.container5 {
+  top: -15px; 
+  left: 40px; 
+  width: 11vw; 
+  margin: 0; 
+  padding: 0; 
+  text-align: right; 
+  max-width: 100%; 
+  position: relative;   
+}
+
+
+.container6 {
+  position: relative; 
+  background-color: white; 
+  color: black; 
+  border: 1px black solid; 
+  top: -75px;
+  height: 10vh;
+  width: 30vh;
+  left: -30px; 
+  word-wrap:break-word;
+  overflow: auto;
+}
+
+#cont6_text {
+  top: 10%; 
+  position: relative;
   color: #000;
+  padding-top: 10%;
+}
+
+#js_button {
+  left: -120px;
+  position: relative;
+  z-index: 5;
+}
+
+#py_button {
+  left: -90px;
+  position: relative;
+  z-index: 5;
+}
+
+/* First 2 Media Queries below are used to changing item positioning 
+   as screen width changes@ */
+
+
+@media only screen and (max-width: 855px) {
+  html {
+      width: 100%; 
+      height: 100%;
+  }
+  
+  body {
+      background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(235, 105, 105));
+      background-color: #323131;
+      position: static;
+      width: 100%;
+      height: auto;
+      font-family: verdana; 
+      z-index: 1;
+      overflow-x: hidden;
+  }
+
+  .header1 {
+      width: 100vw; 
+      height: 150px; 
+      top: -16px; 
+      position: relative; 
+      background-color: beige; 
+      color: black; 
+      z-index: 2;
+      overflow: auto;
+  }
+
+
+    
+  .container1 {
+    left: 35px; 
+    top: -16px; 
+    width: 11vw; 
+    position: relative;
+  }
+
+
+  #encrypt_form1 {
+      height: 10vh; 
+      width: 30vh; 
+      left: 50px; 
+      top: -70px; 
+      position: relative;
+      z-index: 2;
+  }
+
+
+
+
+  #encrypt_input1 {
+      height: 10vh; 
+      width: 30vh; 
+      position: relative;
+      border: 1px black solid;
+      z-index: 2;
+  }
+
+
+  #encrypt_input1::placeholder {
+      color: #000;
+  }
+
+  #encrypt_button1 {
+      top: -45px; 
+      left: 20%; 
+      position: relative; 
+      z-index: 3;
+  }
+
+  .container2 {
+      left: -10px; 
+      width: 11vw; 
+      top: -10px;
+      text-align: right; 
+      max-width: 100%; 
+      position: relative; 
+  }
+
+
+  .container3 {
+      position: relative; 
+      background-color: white; 
+      color: black; 
+      border: 1px black solid; 
+      top: -70px;
+      height: 10vh;
+      width: 30vh;
+      left: -90px; 
+      word-wrap:break-word;
+      overflow: auto;
+  }
+
+  #cont3_text {
+      top: 10%; 
+      position: relative; 
+      color: #000;
+      padding-top: 10%;
+  }
+
+
+    
+  .container4 {
+      left: 35px; 
+      top: -15px; 
+      position: relative;
+  }
+
+
+  #encrypt_form2 {
+      position: relative;
+      height: 10vh; 
+      width: 30vh; 
+      top: -70px; 
+      left: 50px;
+      z-index: 2;
+  }
+
+
+  #encrypt_input2 {
+      position: relative;
+      background-color: white;
+      height: 10vh; 
+      width: 30vh;
+      border: 1px black solid;
+      z-index: 2;
+  }
+
+
+  #encrypt_input2::placeholder {
+      color: #000;
+  }
+
+  #encrypt_button2 {
+      top: -45px; 
+      left: 20%; 
+      position: relative; 
+      z-index: 3;
+  }
+
+  .container5 {
+      top: -15px; 
+      left: -10px; 
+      width: 11vw; 
+      text-align: right; 
+      max-width: 100%; 
+      position: relative;   
+  }
+
+  .container6 {
+      position: relative; 
+      background-color: white; 
+      color: black; 
+      border: 1px black solid; 
+      top: -75px;
+      height: 10vh;
+      width: 30vh;
+      left: -90px; 
+      word-wrap:break-word;
+      overflow: auto;
+  }
+
+  #cont6_text {
+      top: 10%; 
+      position: relative;
+      color: #000;
+      padding-top: 10%;
+  }
+
+
+}
+
+
+
+@media only screen and (max-width: 650px) {
+  html {
+      width: 100%; 
+      height: 100%;
+  }
+  
+  body {
+      background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(235, 105, 105));
+      background-color: #323131;
+      position: static;
+      width: 100%;
+      height: auto;
+      font-family: verdana; 
+      z-index: 1;
+      overflow-x: hidden;
+  }
+
+  .header1 {
+      width: 100vw; 
+      height: 150px; 
+      top: -16px; 
+      position: relative; 
+      background-color: beige; 
+      color: black; 
+      z-index: 2;
+      overflow: auto;
+  }
+
+
+    
+  .container1 {
+    left: 35px; 
+    top: -16px; 
+    width: 11vw; 
+    position: relative;
+  }
+
+
+  #encrypt_form1 {
+      height: 10vh; 
+      width: 30vh; 
+      left: 50px; 
+      top: -70px; 
+      position: relative;
+      z-index: 2;
+  }
+
+
+
+  #encrypt_input1 {
+      height: 10vh; 
+      width: 30vh; 
+      position: relative;
+      border: 1px black solid;
+      z-index: 2;
+  }
+
+
+  #encrypt_input1::placeholder {
+      color: #000;
+  }
+
+  #encrypt_button1 {
+      top: 20px; 
+      left: 38%; 
+      position: relative; 
+      z-index: 3;
+  }
+
+  .container2 {
+      left: -60px; 
+      width: 11vw; 
+      top: -10px;
+      text-align: right; 
+      max-width: 100%; 
+      position: relative; 
+  }
+
+
+  .container3 {
+      position: relative; 
+      background-color: white; 
+      color: black; 
+      border: 1px black solid; 
+      top: -70px;
+      height: 10vh;
+      width: 30vh;
+      left: -90px; 
+      word-wrap:break-word;
+      overflow: auto;
+  }
+
+  #cont3_text {
+      top: 10%; 
+      position: relative; 
+      color: #000;
+      padding-top: 10%;
+  }
+
+
+    
+  .container4 {
+      left: 35px; 
+      top: -15px; 
+      position: relative;
+  }
+
+
+  #encrypt_form2 {
+      position: relative;
+      height: 10vh; 
+      width: 30vh; 
+      top: -70px; 
+      left: 50px;
+      z-index: 2;
+  }
+
+
+  #encrypt_input2 {
+      position: relative;
+      background-color: white;
+      height: 10vh; 
+      width: 30vh;
+      border: 1px black solid;
+      z-index: 2;
+  }
+
+
+  #encrypt_input2::placeholder {
+      color: #000;
+  }
+
+  #encrypt_button2 {
+      top: 15px; 
+      left: 38%; 
+      position: relative; 
+      z-index: 3;
+  }
+
+  .container5 {
+      top: -15px; 
+      left: -60px; 
+      width: 11vw; 
+      text-align: right; 
+      max-width: 100%; 
+      position: relative;   
+  }
+
+  .container6 {
+      position: relative; 
+      background-color: white; 
+      color: black; 
+      border: 1px black solid; 
+      top: -75px;
+      height: 10vh;
+      width: 30vh;
+      left: -90px; 
+      word-wrap:break-word;
+      overflow: auto;
+  }
+
+  #cont6_text {
+      top: 10%; 
+      position: relative;
+      color: #000;
+      padding-top: 10%;
+  }
+
+
+}
+
+
+
+/* Below media queries adjust title size as I scale the x axis
+of the screen. I will change to a JQuery script later on. */
+@media only screen and (max-height: 350px) {
+  #title {
+      font-size:xx-large;
+      text-align: center;
+      padding-top: 13.5vh;
+      position: relative;
+  }
+
+
+}
+
+
+@media only screen and (max-height: 280px) {
+  #title {
+      font-size:xx-large;
+      text-align: center;
+      padding-top: 16vh;
+      position: relative;
+  }
+
+
+}
+
+
+@media only screen and (max-height: 200px) {
+  #title {
+      font-size:xx-large;
+      text-align: center;
+      padding-top: 19vh;
+      position: relative;
+  }
+
+
 }

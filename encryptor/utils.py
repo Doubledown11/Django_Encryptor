@@ -26,7 +26,7 @@ def prime():
     which are used in the calculation of the public/private keys
     """
     # 1.1: Generate Prime Numbers
-    # Gen prime numbers between 2 and 200
+    # Gen prime numbers between 2 and 500
     n = 2
     max_num = 500 # The max number we will iterate to in order to generate primes.
     primes = []
@@ -95,6 +95,9 @@ def encrypt1(bin_list, private):
     """
 
     encrypted_output = []
+    print(bin_list[0], 'bi_list[0] in encrypt1 utils')
+    print(private[1], 'private[1] in utils')
+    print(private[0], 'private[0] in utils')
 
     for x in range(len(bin_list)):
         encrypted_output.append((bin_list[x] ** private[1]) % private[0])
@@ -118,7 +121,7 @@ def convert_to_text(encrypted_output):
     for x in range(len(encrypted_output)):
         value = encrypted_output[x] % 52
 
-        # Now I map the reduced value to an upper or lowercase Unicode integer
+        # Now I map the reduced value to an upper or lowercase ASCII integer
         if value < 26:
             ciphertext.append(value + 65) # Uppercase
         else:
@@ -332,7 +335,7 @@ def convert_to_text_EG(int_list):
         for y in range(len(int_list[x])):
             # Check if letter is upper case by looking for $ at end.
             if '$' in int_list[x][y]:
-                # Uppercase is unicode 65 to 90 inclusive 
+                # Uppercase is ASCII 65 to 90 inclusive 
                 upper_range = 26 # 90-65 since inclusive we add 1.
                 word += str(chr((int(int_list[x][y][:-1]) % upper_range)+65))
 

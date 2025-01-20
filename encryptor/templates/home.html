@@ -6,11 +6,11 @@
         <title>Encryptor Application</title>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     </head>
 
 
@@ -26,11 +26,8 @@
 
 
         <div class="row">
-            <div class="col-6">
-            </div> <!-- 25% -->
-            
-            <div class="col-6">
-            </div>
+            <div class="col-6"></div> <!-- 50% -->
+            <div class="col-6"></div>
         </div>
 
 
@@ -39,22 +36,13 @@
                 <div class="container1">Encrypt RSA Below:</div>
             </div> <!-- 25% -->
             
-
-            <div class="col-3">        
-
-            </div> <!-- 75% -->
-
+            <div class="col-3"></div> <!-- 75% -->
+            <div class="col-3"></div>
             
-            <div class="col-3">
-
-            </div>
-            
-
             <div class="col-3">        
                 <div class="container2">:Encrypted Output</div>
             </div>
         </div>
-
 
 
         <div class="row">
@@ -66,16 +54,13 @@
             </div> <!-- 25% -->
             
             
-            <div class="col-2">
-            </div> <!-- 16.66% -->
+            <div class="col-2"></div> <!-- 16.66% -->
 
             <div class="col-2">
                 <button type="submit" form="encrypt" id='encrypt_button1'>Submit</button>
             </div> <!-- 16.66%  -->
 
-            <div class="col-2">
-            </div> <!-- 16.66% -->
-
+            <div class="col-2"></div> <!-- 16.66% -->
             
             <div class="col-3">
                 <div class="container3"> {% if ciphertext %} {{ciphertext}} {% else %} <center>
@@ -90,9 +75,7 @@
                 <div class="container4">Encrypt ElGamal Below:</div>
             </div> <!-- 25% -->
         
-            <div class="col-3">
-            </div>
-            
+            <div class="col-3"></div>
             <div class="col-3"></div>
             
             <div class="col-3">
@@ -101,8 +84,7 @@
         </div>
 
 
-        <div class="row">
-            
+        <div class="row"> 
             <div class="col-3">
                 <form action="/elgamal" method="POST" name="encrypt_gamal" id="encrypt_form2">
                     {% csrf_token %}
@@ -111,66 +93,46 @@
             </div> <!-- 25% -->
             
 
-            <div class="col-2">
-            </div> <!-- 16.66% -->
+            <div class="col-2"></div> <!-- 16.66% -->
 
             <div class="col-2">
                 <button type="submit" id="encrypt_button2" form="encrypt_gamal">Submit</button>
             </div> <!-- 8.33% -->
 
-            <div class="col-2">
-            </div> <!-- 16.66% -->
+            <div class="col-2"></div> <!-- 16.66% -->
             
             <div class="col-3">
                 <div class="container6">{% if encrypted_text %} {{encrypted_text}} {% else %} <center>
                     <p id="cont6_text">Nothing to encrypt yet...</p></center>{% endif %}
                 </div>
             </div>
-
         </div>
 
 
 
         <div class="row">
-            <div class="col-3">
-               
-            </div> <!-- 25% -->
-            
+            <div class="col-3"></div> <!-- 25% -->
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>        
+        </div>
 
-            <div class="col-3">
+        
+        <div class="row"> 
+            <div class="col-3"></div>
+            <div class="col-2"></div>
+
+            <div class="col-2">
+                <div class="container" id="js_button" href="/dynamic">
+                    <button type="button" onclick="location.href = '/dynamic'">Click for JavaScript Dynamic Encryption!</button>
+                </div>
             </div>
 
-            
-            <div class="col-3"></div>
-            
-            <div class="col-3"> 
-            </div>        
-            
-
-        </div>
-
-        
-        <div class="row">
-            
-            <div class="col-3"></div>
-            
-            <div class="col-3"></div>
-            
-            <div class="col-3"></div>
-            
+            <div class="col-2"></div>
             <div class="col-3"></div>
         </div>
-
-        
 
     </body>
 
-
-
-    <footer>
-
-    </footer>
-
-
-
+    <footer></footer>
 </html>

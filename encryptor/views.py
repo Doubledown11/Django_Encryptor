@@ -1,5 +1,5 @@
-from django.shortcuts import render
-import random, math 
+from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect, reverse
+import random, math, json
 from .utils import convert_to_bin, prime, convert_to_text, encrypt1, keys
 from .utils import prime_EG, primitive_element, random_integer, b_calc_eg, convert_to_integers, gcd, s_param, convert_to_text_EG
 
@@ -19,8 +19,10 @@ def grid(request):
     """sends user to the home page"""
     return render(request, 'gridview.html')
 
-def responsive(request):
-    return render(request, 'responsive.html')
+
+def dynamic(request):
+    return render(request, 'dynamic.html')
+
 
 ### DSA Encrypt ###
 def encrypt_dsa(request): 
@@ -121,6 +123,4 @@ def encrypt(request):
         ciphertext = convert_to_text(encrypted)
 
         return render(request, 'home.html', {'ciphertext':ciphertext})
-        
-
-
+    

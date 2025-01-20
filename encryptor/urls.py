@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('encrypt', views.encrypt, name='encrypt'),
     path('elgamal', views.elgamal, name='elgamal'),
-    path('responsive', views.responsive, name='responsive'),
+    path('dynamic', views.dynamic, name='dynamic'),
+
 ]
