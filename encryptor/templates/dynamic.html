@@ -61,14 +61,18 @@
             <div class="col-2"></div> <!-- 16.66% -->
             
             <div class="col-3">
-                <div class="container3" id="encrypt_output2" name='border_output'></div>
+                <div class="container3" id="encrypt_output2" name='border_output'>
+                    <div class="container" id="encrypt_output3" style="color: black; padding-top: 23px;">
+
+                    </div>
+                </div>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-3"> <!-- ElGamal Title -->
-                <div class="container4">Encrypt ElGamal Below:</div>
+                <div class="container4" style="left: 170px;">Encrypt ElGamal Below:</div>
             </div> <!-- 25% -->
         
             <div class="col-3"></div>
@@ -85,7 +89,7 @@
             <div class="col-3">
                 <form action="/elgamal" method="POST" name="encrypt_gamal" id="encryt_form2">
                     {% csrf_token %}
-                    <input type="text" id="encrypt_input2" name="encrypt_gamal" required minlength="1" placeholder="Enter text here..." style="top: -75px; left: 50px;">
+                    <input type="text" id="encrypt_input2" name="encrypt_gamal" required minlength="1" placeholder="Enter text here..." style="top: -75px; left: 125px;">
                 </form>
             </div> <!-- 25% -->
             
@@ -94,7 +98,11 @@
             <div class="col-2"></div> <!-- 16.66% -->
             
             <div class="col-3">
-                <div class="container6" id="encrypted_output_c2" name='border_output_2'><center></div>
+                <div class="container6" id="encrypted_output_c2" name='border_output_2'>
+                    <div class="container" id="encrypted_output_c3" style="color: black; padding-top: 23px;">
+
+                    </div>
+                </div>
             </div>
 
         </div>

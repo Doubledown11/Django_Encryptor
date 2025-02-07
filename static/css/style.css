@@ -156,6 +156,26 @@ body {
 }
 
 
+.container1 {
+  left: 75px; 
+  top: -16px; 
+  width: 11vw; 
+  position: relative;
+  color: #000;
+}
+
+
+.container2 {
+  left: 40px; 
+  width: 11vw; 
+  top: -10px;
+  margin: 0; 
+  padding: 0; 
+  text-align: right; 
+  max-width: 100%; 
+  position: relative; 
+  color: #000;
+}
 .container3 {
   position: relative; 
   background-color: white; 
@@ -164,7 +184,7 @@ body {
   top: -70px;
   height: 10vh;
   width: 30vh;
-  left: -30px; 
+  right: 200px;
   word-wrap:break-word;
   overflow: auto;
 }

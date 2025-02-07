@@ -10,8 +10,7 @@ document.getElementById('encrypt_output_c2', function () {
 });
 
 
-// Below functions are used to get the keys prior to encryption
-// TODO move to another file in js folder.
+
 function gcd(a, b) {
     let small = Math.min(a,b);
     let high_common = 1;
@@ -61,23 +60,18 @@ function map_range(private) {
         
     // Find the max of the range (when input is z)
     let max_range_upper = ((0b1011010 ** 100) % private);
-    console.log(max_range_upper, 'max up');
 
     // Find the min of the range (when input is a)
     let min_range_upper = ((0b1000001 ** 100) % private);
-    console.log(min_range_upper, 'min up');
-
 
 
     // If the range is lowercase 
 
     // Find the max of the range (when input is z)
     let max_range_lower = ((0b1111010 ** 100) % private);
-    console.log(max_range_lower, 'max down');
 
     // Find the min of the range (when input is a)
     let min_range_lower = ((0b1100001 ** 100) % private);
-    console.log(min_range_lower, 'min down');
 
     return [[min_range_upper, max_range_upper], [min_range_lower, max_range_lower]]
 };
@@ -115,7 +109,6 @@ function map_output(check, encrypted_output, private) {
             
             if (encrypted_output > prior && encrypted_output < (prior + range)) {
                 // Found the letter
-                console.log(letter_val, 'letter val upper'); 
                 return letter_val;
                 
             } else {
@@ -128,18 +121,12 @@ function map_output(check, encrypted_output, private) {
     else {
         let lower_range_hi = ranges[1][1];
         let lower_range_lo = ranges[1][0];
-        console.log(lower_range_hi, 'low range hi');
-        console.log(lower_range_lo, 'low range low');
-        
-        console.log(encrypted_output, 'encrypted output mapping func');
-
+       
         // Find the range between the max and min
         let diff = lower_range_hi - lower_range_lo;
-        console.log(diff, 'diff');
 
         // Break the range into 26 pieces, which we can map output to.
         let range = diff / 26;
-        console.log(range, 'range');
 
         // Find which piece the output belongs to.
         prior = lower_range_lo; 
@@ -149,7 +136,6 @@ function map_output(check, encrypted_output, private) {
 
             if (encrypted_output > prior && encrypted_output < (prior + range)) {
                 // Found the letter 
-                console.log(letter_val, 'letter_val');
                 return letter_val;
                 
             } 
@@ -168,8 +154,7 @@ function rsa_encrypt(bin_list, private) {
     Encrypted output is represented as binary blocks
     */
 
-    console.log(private[1], 'p1');
-    console.log(private[0], 'p0');
+
     let encrypted_output = [];
     for (let x = 0; x < bin_list.length; x++) {
         let encrypted_letter = [];
@@ -184,9 +169,6 @@ function rsa_encrypt(bin_list, private) {
                     break;
                 } else {
                     encrypted_letter.push((bin_list[x][0] ** private[1]) % private[0]);
-                    console.log(bin_list[x][0], 'bin_list x 0');
-                    console.log(bin_list[x][0] ** private[1], 'pow');
-                    console.log((bin_list[x][0] ** private[1]) % private[0], 'modded');
                     break;
                 };
             };
@@ -206,7 +188,6 @@ function convert_to_text(encrypted_output, private) {
     
     let ciphertext = '';
     for (let x = 0; x < encrypted_output.length; x++) {
-        console.log(encrypted_output[encrypted_output.length-1][0], 'enc x in c2t');
         let word = ''; 
         for (let y = 0; y < encrypted_output[x].length; y++) {
             if (encrypted_output[x].length === 2) {
@@ -230,7 +211,6 @@ function convert_to_text(encrypted_output, private) {
                 };
             };
         };
-        console.log(word, 'word in c2t');
         ciphertext += word;
     };
     return ciphertext
@@ -257,7 +237,6 @@ function convert_to_bin(plaintext) {
                     let converted = plaintext[y].charCodeAt().toString(2);                 
                     letter.push(converted); 
                     letter.push('$');
-                    console.log(converted, 'converted');
                 
                 } else if (plaintext[y] == ' ') { 
                     letter.push(plaintext[y]);
@@ -265,7 +244,6 @@ function convert_to_bin(plaintext) {
                 } else {
                     let converted = plaintext[y].charCodeAt().toString(2);
                     letter.push(converted);
-                    console.log(converted, 'converted low');
 
                 };
                 bin_list.push(letter);
@@ -290,7 +268,7 @@ function prime() {
     */
   
     let n = 2;
-    let max_num = 50;
+    let max_num = 25;
     let primes = [];
 
     while (n <= max_num) {
@@ -313,9 +291,21 @@ function prime() {
         
     // Select 2 random values from the list
     let prime1 = Math.floor(Math.random() * primes.length);
-    let prime2 = Math.floor(Math.random() * primes.length);
-    
-    return [prime1, prime2]
+
+    let check = true;
+    let prime2 = 0; 
+    while (check === true) {
+        prime2 = Math.floor(Math.random() * primes.length);
+        if (prime2 >= 1) {
+            check = false;
+        };
+    };
+
+    // Had to change below code --> 
+    // return [prime1, prime2]
+    // As the primes generated would later result in values which were above
+    // the max integer JavaScript can work with. 
+    return [7,11]
 };
 
 
@@ -347,14 +337,13 @@ function keys() {
     let x = true;
     while (x) {
         // Will loop until we find a value which is coprime to ϕ.
-        // I have to use a small amount of numbers as python return as error during the encryption
-        // process as the calculation results in too large of a number.
-        let num = Math.floor(Math.random() * 100);
+        // I have to use a smaller range of numbers to gen num as too large of a n val 
+        // leads to values being larger than the max allowable integer in JavaScript later on.
+        let num = Math.floor(Math.random() * 50);
         let gcd_ = gcd(eulers, num)
         // Coprime is where 2 numbers have no common divisor except for 1. 
         if (gcd(eulers, num) === 1 && num > 1) {
             e = num;
-            console.log(e, 'e values in keys');
             x = false;
         };
     };
@@ -374,8 +363,6 @@ function keys() {
     
 
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
    var input_field = document.getElementById("encrypt_input1");
     console.log("✅ JavaScript file loaded!");
@@ -384,6 +371,13 @@ document.addEventListener("DOMContentLoaded", function () {
     let keys_found = false;
     let public = null;
     let private = null; 
+
+    // Attempt at creating a placeholder
+    let placeholder = 'Nothing to Encrypt yet...';
+    
+    // Attempt at creating a placeholder        
+    document.getElementById('encrypt_output3').innerHTML = placeholder; 
+    
 
     if (input_field) {
         // If the value entered in the input is a backspace we remove
@@ -401,10 +395,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         input_field.addEventListener("input", function() {
-            console.log("User Input:", input_field.value);
             current_input.pop();
             current_input.push(input_field.value);
-            console.log('Input List:', current_input); 
 
 
             // If the input field has a single value, we have to calc a set of keys 
@@ -421,13 +413,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Encrypt 
                 let ciphertext = rsa_encrypt(bin_list, private);
-                console.log(ciphertext, 'ciphertext_list');
 
                 //Convert the encrypted binary back to text
                 let encrypted_output = convert_to_text(ciphertext, private[0]);
 
                 // now return encrypted input string to output. 
-                document.getElementById('encrypt_output2').innerHTML = encrypted_output;
+                document.getElementById('encrypt_output3').innerHTML = encrypted_output;
             }   
 
 
@@ -435,19 +426,21 @@ document.addEventListener("DOMContentLoaded", function () {
             else if (current_input[0].length > 1) {
                 // Convert the characters in the input list to binary
                 let last_word = current_input[current_input.length-1];
-                console.log(last_word, 'last word');
                 let bin_list = convert_to_bin(last_word);
                
                 // Encrypt
                 let ciphertext = rsa_encrypt(bin_list, private);
-                console.log(ciphertext, 'ciphertext');
 
                 // Convert the encrypted binary back to text
                 let encrypted_output = convert_to_text(ciphertext, private[0]);
 
                 // Now return encrypted input string to output 
-                console.log("Final output b4 send to html, ", encrypted_output);
-                document.getElementById('encrypt_output2').innerHTML = encrypted_output;
+                document.getElementById('encrypt_output3').innerHTML = encrypted_output;
+            } 
+
+            // If current input is empty, we ensure the output has no values displayed within
+            else {
+                document.getElementById('encrypt_output3').innerHTML = placeholder;
             };
         });
     } else {
@@ -457,14 +450,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
 ///////////////////////////////////////////////////////////////////
 //             Above Code for the RSA Encryption Algorithm       //
 //             Below Code for the ElGamal Encryption Algorithm   //
 ///////////////////////////////////////////////////////////////////
 
 
-
-function primite_element(prime) {
+function primitive_element(prime) {
     /* 
     Step 2 of the key generation process is to select a primitive element a of the 
     multiplicative group z^* p 
@@ -475,59 +468,80 @@ function primite_element(prime) {
 
     // Get the values in the set 
     let set = [];
-    for (let i = 1; i<p; i++) {
+    for (let i = 1; i<prime; i++) {
         set.push(i);
     }
 
+    let dict = {};
+    for (let y = 0; y < set.length; y++) {
+        dict[set[y]] = 0;
+    };
+
+
     // Check all numbers in range 1:p-1
     let primitive_elements = [];
-    for (let x = 1; x<p; x++) {
+    for (let x = 1; x<prime; x++) {
         // Get g value (represented as x)
+        let valid_g = true;
 
         // Since g^k mod p needs to produce all elements of Z*p
         // exactly once as k runs from 1 to p-1 we can 
         // add results to dict 
-        let dict = {};
         for (let y = 0; y < set.length; y++) {
             dict[set[y]] = 0;
         };
     
 
-        for (let z = 1; z<p; z++) {
+        for (let z = 1; z<prime; z++) {
             // Get k values (represented as z)
             // Need to verify that the integer g^k mod p!=1  
             // for all k<p-1. So we compute here to save time.
-            let check = Math.pow(x,z) % p
-            
-            // Check if 'check' is in dict
-            
-            for (let i = 0; i<dict.length; i++ ) {
-                let in_ = false;
-                for (let j = 0; j<Object.keys(dict).length; j++) {
-                    if (check === Object.keys()[j]) {
-                        in_ = true;
-                    } 
-                };
+
+            // If the current g(x) value is invalid, we skip the rest of its loop
+            if (!valid_g) {
+                continue 
             };
 
-            if (!in_) {
-                continue;
-            } else if (dict[check] === 1) {
-                continue;
-            } else if (in_) {
-                dict[check]++;
-            };
-            
-            // After we ensure the check val is in the set, and has not been visited 
-            // before, and once we do this for every val generated by g, 
-            // we consider it a primitive element.
-            primitive_elements.push(x);  
 
+            let check = Math.pow(x,z) % prime 
+            
+            // Check if 'check' is in dict 
+            if (dict[check] === 1) {
+                valid_g = false;
+                continue;
+            } 
+            // If check has not appeared before, we increment its value by one.
+            else {
+                dict[check] = 1; 
+            };
         };
-        // With alll primitive elements in the set{1..p-1} generated, 
-        // I randomly select one.
-        return Math.floor(Math.random() * primitive_elements.length);
+
+
+        // Ensure every value in dict has been covered only once
+        for (let j in dict) {
+            if (dict[j] === 0) {
+                valid_g = false;
+            };
+        };     
+
+
+
+        // if g^k mod prime covers all numbers in {1,2,3..p-1} exactly once 
+        // it is valid and is considered a primitive element.
+        if (valid_g) {
+            primitive_elements.push(x);
+        };
     };
+
+
+    // With alll primitive elements in the set{1..p-1} generated, 
+    // I randomly select one.
+    // JavaScript rounding led to 0 being picked.    
+    let rand = 0;
+    while (rand === 0) {
+        rand = Math.floor(Math.random() * primitive_elements.length);
+    };
+    return rand
 };
 
 
@@ -538,7 +552,7 @@ function random_integer(prime) {
 
     // Compute the set 
     let set = [];
-    for (let i = 2; i<p-1; i++) {
+    for (let i = 2; i<prime-1; i++) {
         set.push(i);
     };
 
@@ -552,7 +566,7 @@ function b_calc_eg(a,d,prime) {
     Compute the Beta value  
     */
     
-    return Math.pow(a,d) % p
+    return Math.pow(a,d) % prime 
 };
 
 
@@ -564,8 +578,8 @@ function gcd_eg(prime) {
     */
 
     let possible_keys = [];
-    for (let x = 0; x<p-1; x++) {
-        if (gcd(x, p-1) === 1) {
+    for (let x = 0; x<prime-1; x++) {
+        if (gcd(x, prime-1) === 1) {
             possible_keys.push(x);
         };
     };
@@ -585,22 +599,25 @@ function convert_to_integers(plaintext) {
     let new_list = [];
     for (let x = 0; x<plaintext.length; x++) {
         let letter = [];
-        
-        // Check if the current letter is uppercase -- if so we add $ to the letters nested list 
-        if (plaintext[x] === plaintext[x].toUpperCase() && plaintext[x] !== ' ') {
-            let converted = plaintext.charCodeAt();
-            letter.push(converted);
-            letter.push('$');
-        } else if (plaintext[x] === ' ') {
-            letter.push(' ');
-        }
-        // If the current letter is lowercase 
-        else {
-            let converted = plaintext.charCodeAt();
-            letter.push(converted);
+        for (let y = 0; y<plaintext[x].length; y++) {  
+            console.log(plaintext[x], 'ptext[x] in convert to ints loop #', x);
+            
+            // Check if the current letter is uppercase -- if so we add $ to the letters nested list 
+            if (plaintext[x] === plaintext[x].toUpperCase() && plaintext[x] !== ' ') {
+                let converted = plaintext[x].charCodeAt();
+                letter.push(converted);
+                letter.push('$');
+            } else if (plaintext[x] === ' ') {
+                letter.push(' ');
+            }
+            // If the current letter is lowercase 
+            else {
+                let converted = plaintext[x].charCodeAt();
+                letter.push(converted);
+            };
+            new_list.push(letter);
+            break;
         };
-        new_list.push(letter);
-        break;
     }; 
     return new_list
 };
@@ -612,23 +629,40 @@ function s_param(k, prime, plaintext_integers) {
     we calc s.
     */ 
 
+    console.log(plaintext_integers[0][0], 'ptext ints[0][0] in s_param');
+    console.log(k, 'k in s_param');
+
+    let num_push = 0;
+
     let encrypted = [];
     for (let x = 0; x<plaintext_integers.length; x++) {
-        let encypted_ = [];
+        let encrypted_ = [];
+        let done = false;
         for (let y = 0; y<plaintext_integers[x].length; y++) {
             // Check if the current letter is an upper or lower case 
-            // by looking for the $.
-            if (plaintext_integers[x][y].length == 2) {
-                let encrypted_int = (plaintext_integers[x][0] * k) % p;
-                encypted_.push(encrypted_int);
-                encypted_.push('$');
+            // by looking for the $
+            if (plaintext_integers[x].length == 2) {
+                if (!done) {
+                    let encrypted_int = (plaintext_integers[x][0] * k) % prime;
+                    encrypted_.push(encrypted_int);
+
+                    console.log(encrypted_int, 'encrypted_int caps');
+
+                    encrypted_.push('$');
+                    done = true;
+                    num_push++;
+                }
             } else {
-                let encrypted_int = (plaintext_integers[x][0] *k) % p;
-                encypted_.push(encrypted_int);
-                encypted_.push('$');
+                let encrypted_int = (plaintext_integers[x][0] *k) % prime;
+                
+                console.log(encrypted_int, 'encrypted_int');
+
+                encrypted_.push(encrypted_int);
+
             };
-        encrypted.push(encypted_);
         };
+        console.log(encrypted_.length, 'encrypted_ length');
+        encrypted.push(encrypted_);
     };
     return encrypted
 };
@@ -643,23 +677,33 @@ function convert_to_text_eg(encrypted_ints) {
     let ciphertext = '';
     for (let x = 0; x<encrypted_ints.length; x++) {
         let letter = '';
+        let done = false;
+
         for (let y = 0; y<encrypted_ints[x].length; y++) {
+            console.log(y, 'y loop number');
+            console.log(encrypted_ints[x].length, 'length');
             // Check if letter is upper case.
             if (encrypted_ints[x].length === 2) {
-                // FIX MAPPING TECHNIQUE -- SEEMS TO LEAD TO COLLISIONS
-                word+=String.fromCharCode((encrypted_ints % 26) + 65);
-            } 
+                if (!done) {
+                    // FIX MAPPING TECHNIQUE -- SEEMS TO LEAD TO COLLISIONS
+                    letter+=String.fromCharCode((encrypted_ints[x][y] % 26) + 65);  
+                    console.log(letter, 'letter');
+                    done = true;
+                };
+            }
             // Check if letter is lowercase.
             else {
                 if (encrypted_ints[x] === ' ') {
-                    word+=' ';
+                    letter+=' ';
                 } else {
-                    word+=String.fromCharCode((encrypted_ints%26) + 97);
+                    letter+=String.fromCharCode((encrypted_ints[x][y]%26) + 97);
+                    console.log(letter, 'letter in lowercase');
                 };
             };
         };
-        ciphertext+=word;
+        ciphertext+=letter;
     };
+    console.log(ciphertext, 'ciphertext');
     return ciphertext 
 };
 
@@ -677,6 +721,22 @@ document.addEventListener("DOMContentLoaded", function () {
     let keys_found = false;
     let public = null;
     let private = null; 
+    let k = null;
+    // Get prime number
+    // Decided to use a static prime number here as the prime generation led to 
+    // values larger then the max allowable integer in python
+    let prime_ = 17;
+
+
+    
+
+    // Attempt at creating a placeholder
+    let placeholder = 'Nothing to Encrypt yet...';
+    
+    // Attempt at creating a placeholder        
+    document.getElementById('encrypted_output_c3').innerHTML = placeholder; 
+
+
 
     if (input_field) {
         // If the value entered in the input is a backspace we remove
@@ -693,28 +753,38 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
+        // If the value entered in the input is a backspace we remove
+        // the value from the current_input list.                                                                                                                                                                                                            
+        input_field.addEventListener('keydown', function(event) {
+            if (event.key === "Backspace" || event.key === "Delete") {
+                if ( current_input.length === 1 ) {
+                    current_input.pop();
+                    current_input.push('');
+                } else {                                
+                    current_input.pop();
+                };
+            };
+        });
+
+
         input_field.addEventListener("input", function() {
-            console.log("User Input:", input_field.value);
             current_input.pop();
             current_input.push(input_field.value);
-            console.log('Input List:', current_input); 
 
             if (current_input[0].length === 1) {
-                // Get prime number
-                prime = prime()[0];
-                
+            
                 // Choose a primitive element
-                a = primite_element(prime);
+                let a = primitive_element(prime_);
 
                 // Choose a random integer d ∈ (from the set) {2,3,...p-2}
-                d = random_integer(prime);
+                let d = random_integer(prime_);
 
                 // Compute B (Beta) = a^d mod p
-                b = b_calc_eg(a,d,prime);
+                let b = b_calc_eg(a,d,prime_);
 
                 // Public key is formed by (p,a,B) -- Usewd for encryption in
                 // the ElGamal digital signature scheme. 
-                let public = [prime, a, b]
+                let public = [prime_, a, b]
 
                 // Private key is d -- Used for decryption 
                 private = d 
@@ -722,11 +792,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Keys found
                 keys_found = true;
 
-
                 // Choose a random ephemeral key (K) which is an element in 
                 // the set {0,1,2,...p-2} such that gcd(k,p-1) = 1
                 // gcd is the greatest common divisor.
-                let k = gcd_eg(prime); 
+                k = gcd_eg(prime_); 
 
                 // Convert the plaintext into integer values used in 
                 // the encryption process with the public key.
@@ -734,37 +803,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 let plaintext_integers = convert_to_integers(plaintext);
 
                 // Encrypt the integers in plaintext_integers
-                let encrypted_ints = s_param(k, prime, plaintext_integers);  
-                
+                let encrypted_ints = s_param(k, prime_, plaintext_integers);  
+
                 // Convert the encrypted integers back into text 
                 let encrypted_text = convert_to_text_eg(encrypted_ints);
 
                 // Display output to the HTML page 
-                console.log("Final output b4 send to html, ", encrypted_text);
-                document.getElementById('encrypt_output_c2').innerHTML = encrypted_text;
+                document.getElementById('encrypted_output_c3').innerHTML = encrypted_text;
 
 
-            } else {
-                // Choose a random ephemeral key (K) which is an element in 
-                // the set {0,1,2,...p-2} such that gcd(k,p-1) = 1
-                // gcd is the greatest common divisor.
-                let k = gcd_eg(prime); 
-
+            } else if (current_input[0].length > 1) {
+                
                 // Convert the plaintext into integer values used in 
                 // the encryption process with the public key.
                 let plaintext = current_input[0];
                 let plaintext_integers = convert_to_integers(plaintext);
-
+            
                 // Encrypt the integers in plaintext_integers
-                let encrypted_ints = s_param(k, prime, plaintext_integers);  
+                let encrypted_ints = s_param(k, prime_, plaintext_integers);  
                 
                 // Convert the encrypted integers back into text 
                 let encrypted_text = convert_to_text_eg(encrypted_ints);
 
                 // Display output to the HTML page 
-                console.log("Final output b4 send to html, ", encrypted_text);
-                document.getElementById('encrypt_output_c2').innerHTML = encrypted_text;
+                document.getElementById('encrypted_output_c3').innerHTML = encrypted_text;
+            }
+
+             // If current input is empty, we ensure the output has no values displayed within
+            else {
+                document.getElementById('encrypted_output_c3').innerHTML = placeholder;
             };
+
         });
     } else {
         console.error("❌ ERROR: Input field NOT found! Check your HTML.");
